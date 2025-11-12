@@ -61,7 +61,7 @@ class Movie {
       releaseDate: map['releaseDate'] as String,
       voteAverage: map['voteAverage'] as double,
       genreIds: List<int>.from((map['genreIds'] as List<int>),
-    );
+    ));
   }
 
   String toJson() => json.encode(toMap());
