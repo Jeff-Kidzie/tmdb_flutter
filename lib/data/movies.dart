@@ -1,14 +1,20 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'movies.g.dart';
+
+@JsonSerializable()
 class Movie {
   final int id;
   final String title;
   final String overview;
+  @JsonKey(name: 'poster_path')
   final String posterPath;
+  @JsonKey(name: 'release_date')
   final String releaseDate;
+  @JsonKey(name: 'vote_average')
   final double voteAverage;
+  @JsonKey(name: 'genre_ids')
   final List<int> genreIds;
   Movie({
     required this.id,
@@ -40,33 +46,9 @@ class Movie {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'title': title,
-      'overview': overview,
-      'posterPath': posterPath,
-      'releaseDate': releaseDate,
-      'voteAverage': voteAverage,
-      'genreIds': genreIds,
-    };
-  }
+  Map<String, dynamic> toJson() => _$MovieToJson(this);
 
-  factory Movie.fromMap(Map<String, dynamic> map) {
-    return Movie(
-      id: map['id'] as int,
-      title: map['title'] as String,
-      overview: map['overview'] as String,
-      posterPath: map['posterPath'] as String,
-      releaseDate: map['releaseDate'] as String,
-      voteAverage: map['voteAverage'] as double,
-      genreIds: List<int>.from((map['genreIds'] as List<int>),
-    ));
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory Movie.fromJson(String source) => Movie.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
   @override
   String toString() {
@@ -76,25 +58,24 @@ class Movie {
   @override
   bool operator ==(covariant Movie other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.title == title &&
-      other.overview == overview &&
-      other.posterPath == posterPath &&
-      other.releaseDate == releaseDate &&
-      other.voteAverage == voteAverage &&
-      listEquals(other.genreIds, genreIds);
+
+    return other.id == id &&
+        other.title == title &&
+        other.overview == overview &&
+        other.posterPath == posterPath &&
+        other.releaseDate == releaseDate &&
+        other.voteAverage == voteAverage &&
+        listEquals(other.genreIds, genreIds);
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      title.hashCode ^
-      overview.hashCode ^
-      posterPath.hashCode ^
-      releaseDate.hashCode ^
-      voteAverage.hashCode ^
-      genreIds.hashCode;
+        title.hashCode ^
+        overview.hashCode ^
+        posterPath.hashCode ^
+        releaseDate.hashCode ^
+        voteAverage.hashCode ^
+        genreIds.hashCode;
   }
 }

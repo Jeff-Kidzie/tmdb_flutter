@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb_flutter/view/account_screen.dart';
-import 'package:tmdb_flutter/view/home_screen.dart';
+import 'package:tmdb_flutter/feature/home/home_screen.dart';
 import 'package:tmdb_flutter/view/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
